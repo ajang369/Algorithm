@@ -1,3 +1,5 @@
+import sys
+input = sys.stdin.readline
 a, b = map(int, input().split())
 s1 = set(map(int, input().split()))
 s2 = set(map(int, input().split()))
