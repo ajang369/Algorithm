@@ -12,7 +12,6 @@ while True:
         flag = True
     
     if flag:
-        print(f'{n} = ', end="")
-        print(' + '.join(map(str, li)))
+        print(n, '=', ' + '.join(map(str, li)))
     else:
-        print(f'{n} is NOT perfect.')
+        print(n,'is NOT perfect.')
