@@ -1,0 +1,5 @@
+n=int(input())
+nli=list(map(int, input().split()))
+nset = set(nli)
+sort_set = sorted(nset)
+print(*sort_set)
