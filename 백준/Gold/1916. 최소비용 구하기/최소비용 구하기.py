@@ -1,39 +1,34 @@
-import heapq
 import sys
+import heapq
 input = sys.stdin.readline
-INF = int(1e9)
 
 n = int(input())
 m = int(input())
-
-# [[출발도시, (도착도시, 비용)], ...]
-graph = [[] for _ in range(n+1)]
+INF = int(1e9)
 distance = [INF] * (n+1)
-
+graph = [[] for _ in range(n+1)]
 for _ in range(m):
     a, b, c = map(int, input().split())
-    graph[a].append((b, c))
+    # (비용, 도작 지점)
+    graph[a].append((c, b))
 
-st, en = map(int, input().split())
+start, end = map(int, input().split())
 
 def dijk(start):
     q = []
-    heapq.heappush(q, (0, start))
     distance[start] = 0
+    heapq.heappush(q, (0, start))
 
     while q:
-        dis, now = heapq.heappop(q)
+        cost, now = heapq.heappop(q)
 
-        if distance[now] < dis:
+        if distance[now] < cost:
             continue
+        for _cost, end in graph[now]:
+            tmp = cost + _cost
+            if distance[end] > tmp:
+                distance[end] = tmp
+                heapq.heappush(q, (tmp, end))
 
-        for i in graph[now]:
-            cost = dis + i[1]
-
-            if cost < distance[i[0]]:
-                distance[i[0]] = cost
-                heapq.heappush(q, (cost, i[0]))
-
-dijk(st)
-
-print(distance[en])
+dijk(start)
+print(distance[end])
