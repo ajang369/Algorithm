@@ -1,8 +1,10 @@
 n, k = map(int, input().split())
-kid = list(map(int, input().split()))
-
-charge = []
+li = list(map(int, input().split()))
+tmp = []
 for i in range(1, n):
-    charge.append(kid[i]-kid[i-1])
-charge.sort(reverse=True)
-print(sum(charge[k-1:]))
+    tmp.append(li[i] - li[i-1])
+tmp.sort()
+sum = 0
+for i in range(n-k):
+    sum += tmp[i]
+print(sum)
