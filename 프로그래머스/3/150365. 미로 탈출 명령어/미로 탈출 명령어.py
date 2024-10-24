@@ -41,9 +41,6 @@ def dfs(count, cur_x, cur_y, r, c, k, n, m):
             
 
 def solution(n, m, x, y, r, c, k):
-    global answer, flag
-    flag = False
-    answer = 'impossible'
 
     dfs(0, x, y, r, c, k, n, m)
 
