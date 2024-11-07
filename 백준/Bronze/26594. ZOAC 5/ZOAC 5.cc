@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <algorithm>
 using namespace std;
 
 int main() {
@@ -8,11 +9,7 @@ int main() {
 
     char first = s[0];
 
-    int cnt = 0;
-    for (char c : s) {
-        if (c == first) cnt++;
-        else break;
-    }
+    int cnt = count(s.begin(), s.end(), first);
 
     cout << cnt << '\n';
     return 0;
