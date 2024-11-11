@@ -1,23 +1,28 @@
-n,m=map(int, input().split())
-li = list(map(int, input().strip().split()))
-INF = 1e9
+n, m = map(int, input().split())
+tree = list(map(int, input().split()))
 
-def Check(mid):
+lo = 0
+hi = int(1e9)
+
+def check(mid):
+    # 자른 나무들의 합
     sum = 0
     for i in range(n):
-        if li[i] > mid:
-            sum += li[i] - mid
-    return sum >= m
+        # 나무의 높이가 더 크면 자른다
+        if tree[i] > mid:
+            sum += tree[i] - mid
+    # 자른 나무의 합이 목표 길이 m보다 클 때 리턴
+    if sum >= m:
+        return 1
 
-low = 0
-high = INF
 
-while (low + 1 < high):
-    mid = (low+high)//2
-    
-    if Check(mid):
-        low = mid
+while lo + 1 < hi:
+    mid = (lo + hi) // 2
+    # 이분 탐색으로 가능한 경우를 찾았으면 low를 mid로 설정해서 다시
+    if check(mid):
+        lo = mid
+    # 못찾았으면 high를 mid로 설정
     else:
-        high = mid
+        hi = mid
 
-print(int(low))
+print(lo)
