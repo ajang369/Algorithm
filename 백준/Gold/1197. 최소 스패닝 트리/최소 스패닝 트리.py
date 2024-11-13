@@ -1,44 +1,39 @@
-# 정점의 부모 찾는 역할
-def find(x):
-    if parents[x] != x:
-        parents[x] = find(parents[x])
-    return parents[x]
+import sys
+sys.setrecursionlimit(int(1e6))
+input = sys.stdin.readline
 
-# 두 정점 연결하는 역할
-def union(a, b, parents):
+v, e = map(int, input().split())
+parent = [i for i in range(v+1)]
+graph = []
+for _ in range(e):
+    a, b, c = map(int, input().split())
+    graph.append((c, a, b))
+graph.sort()
+
+# 부모찾기
+def find(x):
+    if x != parent[x]:
+        parent[x] = find(parent[x])
+    return parent[x]
+
+# 공통 부모로 묶기
+def union(a, b):
     root_a = find(a)
     root_b = find(b)
+    if root_a == root_b:
+        return
     if root_a > root_b:
-        parents[root_a] = root_b
+        parent[root_a] = root_b
     else:
-        parents[root_b] = root_a
+        parent[root_b] = root_a
 
+def kruskal():
+    weight = 0
+    for cost, st, en in graph:
+        if find(st) != find(en):
+            weight += cost
+            union(st, en)
+    return weight
 
-V, E = map(int, input().split())
-
-# 입력받은거 트리의 정점으로 받기
-tree = []
-# 각 정점의 부모 - 초기 설정은 자기 자신
-parents = [i for i in range(V+1)]
-# 찾은 간선 수 / 총 가중치
-cnt = 0
-weight = 0
-
-for i in range(E):
-    a, b, cost = map(int, input().split())
-    tree.append((cost, a, b))
-tree.sort()
-
-# 모든 정점 탐색
-for node in tree:
-    cost, a, b = node
-    # 두 정점의 부모가 다르면 union해줌
-    if find(a) != find(b):
-        union(a, b, parents)
-        # 가중치에 비용 더해주고 찾은 간선 수에 +1
-        weight += cost
-        cnt += 1
-        # 모든 정점의 수 - 1 = 찾아야할 간선 수
-        if cnt == V-1:
-            break
-print(weight)
+result = kruskal()
+print(result)
