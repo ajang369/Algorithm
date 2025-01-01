@@ -6,8 +6,6 @@ K = int(input())
 # 소수 먼저 구하기
 sosu = [True] * (100001)
 
-ans = 0
-
 # 에라토스테네스의 체를 사용해서 소수인 것만 True로
 for i in range(2, int(math.sqrt(100000))+1):
     if sosu[i]:
@@ -24,5 +22,5 @@ for i in range(2, N+1):
     if sosu[i] and i > K:
         for j in range(i, N+1, i):
             k_num[j] = 0
-            
+
 print(sum(k_num))
